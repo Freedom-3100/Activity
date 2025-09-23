@@ -25,7 +25,7 @@ import com.example.activity.ui.theme.ActivityTheme
 
 
 //Hello its me
-
+//Second task
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
