@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SecondActivity">
+    tools:context=".ThirdActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -14,20 +14,29 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.342" />
+        app:layout_constraintVertical_bias="0.352" />
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="53dp"
+        android:src="@drawable/baseline_cloud_done_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.268" />
 
     <Button
         android:id="@+id/send_to_act"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="177dp"
+        android:layout_height="93dp"
         android:text="@string/go_to_1_activity_1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.42" />
+        app:layout_constraintVertical_bias="0.461" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,7 +2,7 @@
     <string name="app_name">Activity</string>
     <string name="you_in_2_activity">You in 2 activity</string>
     <string name="go_to_1_activity">Go to 1 activity</string>
-    <string name="you_in_2_activity_1">You in 2 activity</string>
+    <string name="you_in_2_activity_1">Success loading to second activity</string>
     <string name="go_to_1_activity_1">Go to 1 activity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>

@@ -18,7 +18,7 @@ class ThirdActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_another)
+        setContentView(R.layout.activity_third)
         findViewById<Button>(R.id.send_to_act).setOnClickListener {
             val context: Context = this@ThirdActivity
             val intent = Intent(context, MainActivity::class.java)
