@@ -23,6 +23,7 @@ class ThirdActivity : AppCompatActivity() {
             val context: Context = this@ThirdActivity
             val intent = Intent(context, MainActivity::class.java)
             context.startActivity(intent)
+            finish()
         }
     }
 }
