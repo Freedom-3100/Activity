@@ -41,6 +41,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.recyclerview)
+    implementation(libs.androidx.cardview)
     val navVersion = "2.4.0-alpha04"
 //    val navVersion = "2.3.5" Works only with NavigationExtension
 
