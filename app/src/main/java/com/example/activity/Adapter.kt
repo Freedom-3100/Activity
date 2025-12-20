@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.example.activity.data.CharacterEntity
 import com.example.activity.databinding.CardItemBinding
 import com.example.activity.databinding.CardItemTitleBinding
 
@@ -14,13 +15,12 @@ class Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         private const val TYPE_TITLE = 1
     }
 
-    private val cardList = ArrayList<Card>()
+    // Изменяем тип списка на Character вместо Card
+    private val characterList = ArrayList<CharacterEntity>()
 
     override fun getItemViewType(position: Int): Int {
-        return when (cardList[position]) {
-            is Card.Content -> TYPE_ITEM
-            is Card.Title -> TYPE_TITLE
-        }
+        // Для первой позиции - заголовок, для остальных - контент
+        return if (position == 0) TYPE_TITLE else TYPE_ITEM
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -46,58 +46,48 @@ class Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (val card = cardList[position]) {
-            is Card.Content -> (holder as ContentViewHolder).bind(card)
-            is Card.Title -> (holder as TitleViewHolder).bind(card)
+        when (holder) {
+            is ContentViewHolder -> {
+                // Для контентных элементов используем position - 1 (т.к. первая позиция - заголовок)
+                val character = characterList[position - 1]
+                holder.bind(character)
+            }
+            is TitleViewHolder -> {
+                holder.bind("Персонажи Rick and Morty")
+            }
         }
     }
 
-    override fun getItemCount(): Int = cardList.size
+    override fun getItemCount(): Int = characterList.size + 1 // +1 для заголовка
 
-    fun submitCharacters(characters: List<Character>) {
-        cardList.clear()
-
-        // Добавляем заголовок
-        cardList.add(Card.Title("Персонажи Rick and Morty", true))
-
-        // Преобразуем Character в Card.Content
-        characters.forEach { character ->
-            cardList.add(
-                Card.Content(
-                    id = character.id,
-                    imageUrl = character.image,
-                    title = character.name,
-                    description = "${character.species} • ${character.status}",
-                    status = character.status
-                )
-            )
-        }
-
+    fun submitCharacters(characters: List<CharacterEntity>) {
+        characterList.clear()
+        characterList.addAll(characters)
         notifyDataSetChanged()
     }
 
     fun clear() {
-        cardList.clear()
+        characterList.clear()
         notifyDataSetChanged()
     }
 
-    // ViewHolder для контентных карточек
+    // ViewHolder для контентных карточек (теперь принимает Character)
     class ContentViewHolder(private val binding: CardItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(card: Card.Content) = with(binding) {
+        fun bind(character: CharacterEntity) = with(binding) {
             // Загружаем изображение с помощью Coil
-            imageView.load(card.imageUrl) {
+            imageView.load(character.image) {
                 crossfade(true)
                 placeholder(android.R.drawable.ic_menu_gallery)
                 error(android.R.drawable.ic_menu_report_image)
             }
 
-            textView.text = card.title
-            textViewDescription.text = card.description
+            textView.text = character.name
+            textViewDescription.text = "${character.species} • ${character.status}"
 
             // Цвет статуса
-            when (card.status.lowercase()) {
+            when (character.status.lowercase()) {
                 "alive" -> textViewDescription.setTextColor(android.graphics.Color.GREEN)
                 "dead" -> textViewDescription.setTextColor(android.graphics.Color.RED)
                 else -> textViewDescription.setTextColor(android.graphics.Color.GRAY)
@@ -109,16 +99,10 @@ class Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     class TitleViewHolder(private val binding: CardItemTitleBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(card: Card.Title) = with(binding) {
-            titleTextView.text = card.text
-
-            if (card.isMainTitle) {
-                titleTextView.textSize = 20f
-                titleTextView.setTextColor(android.graphics.Color.BLACK)
-            } else {
-                titleTextView.textSize = 16f
-                titleTextView.setTextColor(android.graphics.Color.GRAY)
-            }
+        fun bind(titleText: String) = with(binding) {
+            titleTextView.text = titleText
+            titleTextView.textSize = 20f
+            titleTextView.setTextColor(android.graphics.Color.BLACK)
         }
     }
 }
